@@ -1,0 +1,42 @@
+---
+layout: page
+title: Schedule
+weight: 3
+img: img/schedule.jpg
+---
+
+<h1 class="text-center">{{ page.title }}</h1>
+
+<!-- <img class="img-thumbnail" style="margin-left: 10px; margin-bottom: 20px;" src="{{ site.baseurl }}/{{ page.img }}" alt="Tomas Ondrias" >
+-->
+
+<br>
+<div class="text-center">
+  <a href="#2015">2015</a>&nbsp;&nbsp;
+  <a href="#2014">2014</a>&nbsp;&nbsp;
+  <a href="#2013">2013</a>
+</div>
+<br>
+
+<h3 id="2015">2015</h3>
+
+{% assign my_array = "1,2,4,6,7,8,9,10,11,12" | split: "," %}
+{% for item in my_array reversed %}
+  {% capture month_number %}{{ item }}{% endcapture %}
+  {% include month.html year="2015" month=month_number %}
+{% endfor %}
+
+<h3 id="2014">2014</h3>
+
+{% for item in (1..12) reversed %}
+  {% capture month_number %}{{ item }}{% endcapture %}
+  {% include month.html year="2014" month=month_number %}
+{% endfor %}
+
+<h3 id="2013">2013</h3>
+
+{% assign my_array2 = "9,10,11,12" | split: "," %}
+{% for item in my_array2 reversed %}
+  {% capture month_number %}{{ item }}{% endcapture %}
+  {% include month.html year="2013" month=month_number %}
+{% endfor %}

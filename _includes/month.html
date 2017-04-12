@@ -1,0 +1,15 @@
+<div class="panel panel-default">
+	<div class="panel-heading">
+		<h3 class="panel-title">{{ site.data.months[include.month] }} {{ include.year }}</h3>
+	</div>
+	<div class="panel-body">
+		{% for item in site.data.schedule[include.year][include.month] %}
+			{{ item[0] }}
+			<br>
+			{{ item[1] }}
+			{% unless forloop.last %}
+				<br><br>
+			{% endunless %}
+		{% endfor %}
+	</div>
+</div>
