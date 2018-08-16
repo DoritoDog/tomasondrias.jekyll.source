@@ -9,7 +9,7 @@ img: img/schedule.jpg
 
 <!-- <img class="img-thumbnail" style="margin-left: 10px; margin-bottom: 20px;" src="{{ site.baseurl }}/{{ page.img }}" alt="Tomas Ondrias" >
 -->
-
+<!--
 <br>
 <div class="text-center">
   <a href="#2015">2015</a>&nbsp;&nbsp;
@@ -40,3 +40,64 @@ img: img/schedule.jpg
   {% capture month_number %}{{ item }}{% endcapture %}
   {% include month.html year="2013" month=month_number %}
 {% endfor %}
+-->
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Place</th>
+    </tr>
+  </thead>
+  <tbody id="table-body" style="font-weight: 100">
+  </tbody>
+</table>
+
+<script>
+  
+var xhttp = new XMLHttpRequest();
+xhttp.onreadystatechange = function() {
+  if (this.readyState == 4 && this.status == 200) {
+    var concerts = JSON.parse(this.responseText);
+    for (var i = 0; i < concerts.length; i++) {
+      var concert = concerts[i];
+      addConcert(concert.Date, concert.Type, concert.Description, concert.Place);
+    }
+  }
+};
+xhttp.open("GET", "{{site.baseurl}}/json/new_schedule.json", true);
+xhttp.send();
+
+var thStyle = "font-weight: 500; font-size: 14px;";
+function addConcert(date, type, description, place) {
+  var table = document.getElementById('table-body');
+
+  var tr = document.createElement("tr");
+  table.appendChild(tr);
+
+  var th1 = document.createElement("th");
+  th1.innerHTML = date;
+  th1.style = thStyle;
+  tr.appendChild(th1);
+
+  var th2 = document.createElement("th");
+  tr.appendChild(th2);
+  var badge = document.createElement('span');
+  badge.classList = 'badge badge-primary bg-primary';
+  badge.innerHTML = type;
+  th2.appendChild(badge);
+
+  var th3 = document.createElement("th");
+  th3.innerHTML = description;
+  th3.style = thStyle;
+  tr.appendChild(th3);
+
+  var th4 = document.createElement("th");
+  th4.innerHTML = place;
+  th4.style = thStyle;
+  tr.appendChild(th4);
+}
+
+</script>

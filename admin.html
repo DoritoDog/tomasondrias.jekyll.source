@@ -1,0 +1,61 @@
+---
+layout: page
+title: Admin
+weight: 7
+---
+<h3 class="text-center">Schedule - pridat concert</h3>
+<div class="form-group">
+  <form action="admin.rb" method="post">
+    <label for="date">Datum</label>
+    <input type="text" class="form-control" id="date">
+
+    <label for="type">Typ</label>
+    <input type="text" class="form-control" id="type">
+
+    <label for="opis">Opis</label>
+    <input type="text" class="form-control" id="desc">
+
+    <label for="place">Miesto</label>
+    <input type="text" class="form-control" id="place">
+
+    <button onclick="addConcert();" style="margin-top: 20px">Ukazat kod</button>
+  </form>
+</div>
+
+<p id="output">
+
+</p>
+
+<script>
+  
+var jsonBefore = "";
+var xhttp = new XMLHttpRequest();
+xhttp.onreadystatechange = function() {
+  if (this.readyState == 4 && this.status == 200) {
+    jsonBefore = this.responseText;
+    alert(jsonBefore);
+  }
+};
+xhttp.open("GET", "{{site.baseurl}}/json/new_schedule.json", true);
+xhttp.send();
+
+function addConcert() {
+  var date = document.getElementById('date').value;
+  var type = document.getElementById('type').value;
+  var desc = document.getElementById('desc').value;
+  var place = document.getElementById('place').value;
+
+  var concert = {
+    "Date": date,
+    "Type": type,
+    "Description": desc,
+    "Place": place
+  };
+
+  var jsonObj = JSON.parse(jsonBefore);
+  jsonObj.push(concert);
+  var output = JSON.stringify(jsonObj);
+  document.getElementById('output').innerHTML = output;
+}
+
+</script>
